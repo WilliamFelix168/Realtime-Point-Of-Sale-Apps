@@ -129,14 +129,14 @@ npm install -D vitest @vitejs/plugin-react @testing-library/react @testing-libra
 
 ## Git Workflow
 
-**Always `git fetch` first** before starting any session, creating a branch, or making changes.
+**Trigger keyword: `cp`** — when the user says `cp`, always run `git fetch origin` first before doing anything else.
 
 ```bash
 git fetch origin        # sync remote state without merging
 git status              # confirm clean working tree
 ```
 
-- `git fetch` before every work session — no exceptions.
+- `cp` → fetch first, no exceptions.
 - Branch from an up-to-date `main`: `git fetch origin && git checkout main && git pull`.
 - Commit messages follow Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`, etc.
 - Keep commits atomic — one logical change per commit.

@@ -43,3 +43,7 @@ next-env.d.ts
 
 # AI agent context
 AGENTS.md
+
+# AI agent generated skills
+/.agents/
+/skills-lock.json

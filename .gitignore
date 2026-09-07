@@ -47,3 +47,4 @@ AGENTS.md
 # AI agent generated skills
 /.agents/
 /skills-lock.json
+/.omp/

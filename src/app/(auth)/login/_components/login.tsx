@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/field";
 
 import { Input } from "@/components/ui/input";
-import { INITIAL_LOGIN_FORM } from "@/constansts/auth-constant";
+import { INITIAL_LOGIN_FORM } from "@/constants/auth-constant";
 import { LoginForm, loginSchema } from "@/validations/auth-validation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,7 +42,7 @@ export default function Login() {
       </CardHeader>
 
       <CardContent>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="space-y-4">
           <FieldGroup>
             <Controller
               name="email"
@@ -61,7 +61,10 @@ export default function Login() {
                   />
 
                   {fieldState.error && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      className="text-xs"
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               )}
@@ -84,7 +87,10 @@ export default function Login() {
                   />
 
                   {fieldState.error && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      className="text-xs"
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               )}

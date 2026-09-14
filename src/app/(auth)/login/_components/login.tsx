@@ -1,5 +1,6 @@
 "use client";
 
+import FormInput from "@/components/common/form-input";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -44,56 +45,20 @@ export default function Login() {
       <CardContent>
         <form onSubmit={onSubmit} className="space-y-4">
           <FieldGroup>
-            <Controller
+            <FormInput
+              form={form}
               name="email"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Email</FieldLabel>
-
-                  <Input
-                    {...field}
-                    id={field.name}
-                    type="email"
-                    placeholder="Insert your email"
-                    autoComplete="off"
-                    aria-invalid={fieldState.invalid}
-                  />
-
-                  {fieldState.error && (
-                    <FieldError
-                      className="text-xs"
-                      errors={[fieldState.error]}
-                    />
-                  )}
-                </Field>
-              )}
+              label="Email"
+              placeholder="Insert Email here"
+              type="email"
             />
 
-            <Controller
+            <FormInput
+              form={form}
               name="password"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-
-                  <Input
-                    {...field}
-                    id={field.name}
-                    type="password"
-                    placeholder="******"
-                    autoComplete="off"
-                    aria-invalid={fieldState.invalid}
-                  />
-
-                  {fieldState.error && (
-                    <FieldError
-                      className="text-xs"
-                      errors={[fieldState.error]}
-                    />
-                  )}
-                </Field>
-              )}
+              label="Password"
+              placeholder="******"
+              type="password"
             />
 
             <Button type="submit">Login</Button>

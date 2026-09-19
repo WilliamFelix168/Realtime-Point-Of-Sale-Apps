@@ -10,29 +10,51 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { FieldGroup } from "@/components/ui/field";
 
-import { Input } from "@/components/ui/input";
-import { INITIAL_LOGIN_FORM } from "@/constants/auth-constant";
-import { LoginForm, loginSchema } from "@/validations/auth-validation";
+import {
+  INITIAL_LOGIN_FORM,
+  INITIAL_STATE_LOGIN_FORM,
+} from "@/constants/auth-constant";
+import { LoginForm, loginSchemaForm } from "@/validations/auth-validation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { startTransition, useActionState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { login } from "../action";
+import { Loader2 } from "lucide-react";
 
 export default function Login() {
   const form = useForm<LoginForm>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginSchemaForm),
     defaultValues: INITIAL_LOGIN_FORM,
   });
 
+  const [loginState, loginAction, isPendingLogin] = useActionState(
+    login,
+    INITIAL_STATE_LOGIN_FORM,
+  );
+
   const onSubmit = form.handleSubmit(async (data) => {
-    console.log(data);
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    startTransition(() => {
+      loginAction(formData);
+    });
   });
+
+  useEffect(() => {
+    if (loginState?.status === "error") {
+      startTransition(() => {
+        loginAction(null);
+      });
+    }
+  }, [loginState]);
+
+  console.log(loginState);
 
   return (
     <Card>
@@ -61,7 +83,9 @@ export default function Login() {
               type="password"
             />
 
-            <Button type="submit">Login</Button>
+            <Button type="submit">
+              {isPendingLogin ? <Loader2 className="animate-spin" /> : "Login"}
+            </Button>
           </FieldGroup>
         </form>
       </CardContent>

@@ -7,8 +7,7 @@ export async function updateSession(request: NextRequest) {
     request,
   });
 
-  const { SUPABASE_URL, SUPABASE_ANON_KEY } =
-    environment;
+  const { SUPABASE_URL, SUPABASE_ANON_KEY } = environment;
 
   const supabase = createServerClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
     cookies: {
@@ -41,7 +40,7 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (user && request.nextUrl.pathname !== "/login") {
+  if (user && request.nextUrl.pathname === "/login") {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);
@@ -49,4 +48,3 @@ export async function updateSession(request: NextRequest) {
 
   return supabaseResponse;
 }
-
